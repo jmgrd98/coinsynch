@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import {useState, useEffect} from 'react'
-import '../app/globals.css'
+import '../styles/global.css'
 import logo from '../public/assets/images/logo.png'
 import axios from "axios";
 

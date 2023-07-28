@@ -13,6 +13,10 @@ export default function Home() {
         setIsOpen(true);
     }
 
+    function closeModal() {
+        setIsOpen(false);
+    }
+
 
     return (
         <section className='p-10 flex gap-5 w-full'>
@@ -24,7 +28,7 @@ export default function Home() {
 
                 <button className='bg-yellow-500 p-4 text-white font-bold rounded-3xl w-1/2' onClick={openModal}>SIGN UP NOW -></button>
 
-                {isOpen && <SignupModal/>}
+                {isOpen && <SignupModal onClose={closeModal} />}
 
                 <div className='flex gap-5'>
 

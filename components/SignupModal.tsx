@@ -1,8 +1,9 @@
 'use client'
 
 import {useState} from "react";
+import '../styles/global.css'
 
-export default function SignupModal() {
+export default function SignupModal({onClose}: {onClose: () => void}) {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -16,7 +17,12 @@ export default function SignupModal() {
 
 
     return (
-        <form className='flex flex-col p-5 items-center border border-1 border-gray-500 rounded absolute bg-white m-auto self-center'>
+        <>
+            <div
+                className="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center"
+                onClick={onClose}
+            ></div>
+        <form className='fixed z-20 flex flex-col p-5 items-center border border-1 border-gray-500 rounded bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
             <h1 className='text-2xl text-gray-400'>Sign up to <span className='text-yellow-500'>Coin</span><span className='font-bold'>Synch</span></h1>
 
             <input type='text' placeholder='Name' className='w-full p-2 mt-5 border-1 border-gray-500 rounded' onClick={handleChange}/>
@@ -37,5 +43,6 @@ export default function SignupModal() {
                 <p className='text-gray-500'>to <span className='font-bold text-yellow-500'>Coin</span><span className='font-bold'>Synch</span></p>
             </div>
         </form>
+        </>
     )
 }
