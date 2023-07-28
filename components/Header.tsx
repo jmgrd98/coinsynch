@@ -5,8 +5,33 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import '../app/globals.css'
 import logo from '../public/assets/images/logo.png'
+import axios from "axios";
 
 export default function Header() {
+
+    const apiKey: string = 'D755543C-00D2-465A-B026-D3D5E576CF90';
+    const baseUrl: string = 'https://rest.coinapi.io/v1';
+
+    async function fetchCoinData() {
+        try{
+            const response = await axios.get(`${baseUrl}/exchangerate/SOL/BRL`, {
+                headers: {
+                    'X-CoinAPI-Key': apiKey
+                }
+            });
+
+            const solanaPrice = response.data.rate;
+            console.log('SOL price: ', solanaPrice);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCoinData();
+    }, []);
+
+
     return (
         <header className="flex items-center justify-between w-full h-16 px-4 bg-white border-b border-gray-200 dark:bg-zinc-800 dark:border-zinc-700">
 
