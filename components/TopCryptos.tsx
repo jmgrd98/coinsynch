@@ -2,17 +2,17 @@
 
 export default function TopCryptos() {
     return (
-        <section className='flex flex-col items-center'>
+        <section className='flex flex-col items-center p-10'>
             <h2 className='text-gray-500 font-bold text-3xl text-center'>Top Cryptos</h2>
 
             <table className='w-full mt-10'>
-                <thead>
-                <tr className='text-gray-500 text-left'>
-                    <th className='p-2'>#</th>
-                    <th className='p-2'>Name</th>
-                    <th className='p-2'>Price</th>
-                    <th className='p-2'>Change</th>
-                    <th className='p-2'>Trade</th>
+                <thead className='font-normal'>
+                <tr className='text-gray-500 text-left font-normal'>
+                    <th className='p-2 font-normal'>#</th>
+                    <th className='p-2 font-normal'>Crypto</th>
+                    <th className='p-2 font-normal'>Price</th>
+                    <th className='p-2 font-normal'>Change</th>
+                    <th className='p-2 font-normal'>Trade</th>
                 </tr>
                 </thead>
 

@@ -5,6 +5,7 @@ import image from '../public/assets/images/image.png'
 import {useState} from "react";
 import SignupModal from "@/components/SignupModal";
 import TopCryptos from "@/components/TopCryptos";
+import Newsletter from "@/components/Newsletter";
 
 export default function Home() {
 
@@ -50,6 +51,7 @@ export default function Home() {
         </section>
 
             <TopCryptos />
+            <Newsletter />
         </>
     )
 }
