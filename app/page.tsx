@@ -1,10 +1,19 @@
 'use client'
 
 import Image from 'next/image'
-import Header from "@/components/Header";
 import image from '../public/assets/images/image.png'
+import {useState} from "react";
+import SignupModal from "@/components/SignupModal";
 
 export default function Home() {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+
     return (
         <section className='p-10 flex gap-5 w-full'>
 
@@ -13,7 +22,9 @@ export default function Home() {
                 <p className='text-gray-600 text-2xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
                     aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor</p>
 
-                <button className='bg-yellow-500 p-4 text-white font-bold rounded-3xl w-1/2'>SIGN UP NOW -></button>
+                <button className='bg-yellow-500 p-4 text-white font-bold rounded-3xl w-1/2' onClick={openModal}>SIGN UP NOW -></button>
+
+                {isOpen && <SignupModal/>}
 
                 <div className='flex gap-5'>
 
