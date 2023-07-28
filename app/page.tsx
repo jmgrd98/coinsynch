@@ -4,6 +4,7 @@ import Image from 'next/image'
 import image from '../public/assets/images/image.png'
 import {useState} from "react";
 import SignupModal from "@/components/SignupModal";
+import TopCryptos from "@/components/TopCryptos";
 
 export default function Home() {
 
@@ -19,6 +20,7 @@ export default function Home() {
 
 
     return (
+        <>
         <section className='p-10 flex gap-5 w-full'>
 
             <section className='mt-20 flex flex-col gap-5 w-1/2'>
@@ -46,5 +48,8 @@ export default function Home() {
 
 
         </section>
+
+            <TopCryptos />
+        </>
     )
 }
