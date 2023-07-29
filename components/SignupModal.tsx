@@ -16,59 +16,51 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
     const [formValid, setFormValid] = useState(false);
     const [isSignInForm, setIsSignInForm] = useState(false);
 
-    function handleChange(e) {
+    function handleChange(e: any) {
         const {name, value} = e.target;
 
         setNewUser((prevState) => ({
             ...prevState,
             [name]: value,
         }));
-
-        if (name === 'password' && value !== newUser.confirmPassword) {
-            toast.warn('Please fill in all the fields!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        }
-
-        if (name === 'confirmPassword' && value !== newUser.password) {
-            toast.warn('Please fill in all the fields!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        }
-
-        if (name === 'confirmPassword' && value === newUser.password) {
-            setChecked(true);
-        }
-
-        if (name === 'password' && value === newUser.confirmPassword) {
-            setChecked(true);
-        }
-
-
     }
 
-    function handleCheck(e) {
+    function handleCheck(e: any) {
         setChecked((prevChecked) => !prevChecked);
-
-
+        setFormValid((prevFormValid) => !prevFormValid);
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e: any, name: string, value: string) {
         e.preventDefault();
+
+
+        if (newUser.name === '' || newUser.email === '' || newUser.password === '', newUser.confirmPassword === '') {
+            toast.warn('Please fill in all fields!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
+        if (newUser.password !== newUser.confirmPassword) {
+            toast.warn('Passwords do not match!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
 
         if (!formValid) {
             toast.warn('Form is invalid!', {
