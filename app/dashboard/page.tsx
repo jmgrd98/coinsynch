@@ -1,19 +1,19 @@
 'use client'
 
 import Image from 'next/image'
-import image from '../public/assets/images/image.png'
-import {useState} from "react";
-import SignupModal from "@/components/SignupModal";
-import TopCryptos from "@/components/TopCryptos";
-import Newsletter from "@/components/Newsletter";
+import {useEffect, useState} from "react";
 import Sidebar from "@/components/Sidebar";
 import balanceIcon from '../../public/assets/icons/balance-icon.svg'
 import walletIcon from '../../public/assets/icons/wallet-icon.svg'
 import elephantx from '../../public/assets/images/elephantx.svg'
 import grayWalletIcon from '../../public/assets/icons/gray-wallet.svg'
 import AddCryptoModal from "@/components/AddCryptoModal";
+import axios from "axios";
 
 export default function Dashboard() {
+
+    const cryptoIconsApiBaseUrl = 'https://cryptoicons.org/api/icon';
+    const [cryptoIcon, setCryptoIcon] = useState('');
 
     const [balance, setBalance] = useState(423432);
 
@@ -27,6 +27,18 @@ export default function Dashboard() {
         setIsOpen(false);
     }
 
+    async function fetchCryptoIcon() {
+        try{
+            const response = await axios.get(`${cryptoIconsApiBaseUrl}/btc/50`);
+            setCryptoIcon(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCryptoIcon();
+    }, []);
 
     return (
         <section className='flex'>
@@ -54,7 +66,10 @@ export default function Dashboard() {
                     <section className='bg-white w-1/4 p-5 rounded shadow'>
                         <p className='text-gray-500'>Daily variation</p>
 
+                        {cryptoIcon && <Image src={cryptoIcon} alt='Crypto icon' width={50} height={50}/>}
+
                     </section>
+
                     <section className='bg-white w-1/4 flex rounded shadow'>
                         <div className='flex p-3 flex-col gap-2'>
                             <p className='text-gray-500 font-bold'>NFT's NEWS</p>
