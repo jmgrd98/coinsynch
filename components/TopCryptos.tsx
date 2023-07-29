@@ -48,11 +48,11 @@ export default function TopCryptos() {
                 <tbody>
                 {cryptos.slice(0, viewMore ? cryptos.length : 5).map((crypto, index) => (
                     <tr className='text-gray-500 text-left' key={index}>
-                        <td className='p-2'>{crypto.rank}</td>
-                        <td className='p-2'>{crypto.name} {crypto.symbol}</td>
-                        <td className='p-2'>US$ {crypto.priceUsd}</td>
+                        <td className='p-5'>{crypto.rank}</td>
+                        <td>{crypto.name} {crypto.symbol}</td>
+                        <td>US$ {crypto.priceUsd}</td>
                         <td className={crypto.changePercent24Hr < 0 ? 'text-red-700 p-2' : 'text-green-700 p-2'}>{crypto.changePercent24Hr < 0 ? '' : '+'}{crypto.changePercent24Hr}%</td>
-                        <td className='bg-green-700 text-white text-center rounded-3xl h-5'>Buy</td>
+                        <td className='bg-green-700 text-white text-center rounded-3xl'>Buy</td>
                     </tr>
                 ))}
                 </tbody>
