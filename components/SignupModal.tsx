@@ -92,7 +92,7 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
                 className="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center modal-overlay"
                 onClick={handleOverlayClick}
             ></div>
-            {/* ... */}
+
             <form
                 className="fixed z-20 flex flex-col p-5 items-center rounded bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             >

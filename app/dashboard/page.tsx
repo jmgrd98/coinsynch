@@ -11,10 +11,21 @@ import balanceIcon from '../../public/assets/icons/balance-icon.svg'
 import walletIcon from '../../public/assets/icons/wallet-icon.svg'
 import elephantx from '../../public/assets/images/elephantx.svg'
 import grayWalletIcon from '../../public/assets/icons/gray-wallet.svg'
+import AddCryptoModal from "@/components/AddCryptoModal";
 
 export default function Dashboard() {
 
     const [balance, setBalance] = useState(423432);
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
 
 
     return (
@@ -60,16 +71,18 @@ export default function Dashboard() {
 
 
                 <section className='flex gap-10 mt-10 flex-col bg-white'>
-                    <section className='flex p-5 mt-10 rounded-2xl'>
+                    <section className='flex p-5 rounded-2xl'>
                         <div className='flex gap-3 items-center border-b p-3 border-b-gray-200 justify-between w-full'>
                             <div className='flex gap-3 items-center'>
                                 <Image src={walletIcon} alt='Wallet icon' width={50} height={50}/>
                                 <h2 className='text-2xl font-bold text-gray-500'>My Wallet</h2>
                             </div>
 
-                            <button className='bg-yellow-500 text-white rounded-3xl p-2'>+ Add Crypto</button>
+                            <button className='bg-yellow-500 text-white rounded-3xl p-2' onClick={openModal}>+ Add Crypto</button>
                         </div>
                     </section>
+
+                    {isOpen && <AddCryptoModal onClose={closeModal} />}
 
                     <section className='flex flex-col gap-5 m-auto p-10 items-center text-center'>
                         <div className='bg-gray-100 w-1/2 p-5 rounded-3xl flex gap-5'>
