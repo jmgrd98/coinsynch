@@ -5,8 +5,10 @@ import {useEffect, useState} from "react";
 
 export default function TopCryptos() {
 
-    const apiKey: string = 'D755543C-00D2-465A-B026-D3D5E576CF90';
-    const baseUrl: string = 'https://rest.coinapi.io/v1';
+    const apiKey: string = '41fed9cd-5510-4753-a716-272f97c1bac3';
+    const baseUrl: string = 'https://api.coincap.io/v2';
+
+    const [cryptos, setCryptos] = useState([]);
 
     const [viewMore, setViewMore] = useState(false);
 
@@ -16,11 +18,8 @@ export default function TopCryptos() {
 
     async function fetchCoinData() {
         try {
-            const response = await axios.get(`${baseUrl}/exchangerate/`, {
-                headers: {
-                    'X-CoinAPI-Key': apiKey
-                }
-            });
+            const response = await axios.get(`${baseUrl}/assets/`);
+            setCryptos(response.data.data);
         } catch (error) {
             console.error(error);
         }
@@ -47,41 +46,50 @@ export default function TopCryptos() {
                 </thead>
 
                 <tbody>
-                <tr className='text-gray-500 text-left'>
-                    <td className='p-2'>1</td>
-                    <td className='p-2'>Bitcoin</td>
-                    <td className='p-2'>R$ 300.000,00</td>
-                    <td className='p-2'>+ 0.00%</td>
-                    <td className='p-2'>Buy</td>
-                </tr>
-                <tr className='text-gray-500 text-left'>
-                    <td className='p-2'>2</td>
-                    <td className='p-2'>Ethereum</td>
-                    <td className='p-2'>R$ 300.000,00</td>
-                    <td className='p-2'>+ 0.00%</td>
-                    <td className='p-2'>Buy</td>
-                </tr>
-                <tr className='text-gray-500 text-left'>
-                    <td className='p-2'>3</td>
-                    <td className='p-2'>Cardano</td>
-                    <td className='p-2'>R$ 300.000,00</td>
-                    <td className='p-2'>+ 0.00%</td>
-                    <td className='p-2'>Buy</td>
-                </tr>
-                <tr className='text-gray-500 text-left'>
-                    <td className='p-2'>4</td>
-                    <td className='p-2'>Binance Coin</td>
-                    <td className='p-2'>R$ 300.000,00</td>
-                    <td className='p-2'>+ 0.00%</td>
-                    <td className='p-2'>Buy</td>
-                </tr>
-                <tr className='text-gray-500 text-left'>
-                    <td className='p-2'>5</td>
-                    <td className='p-2'>Tether</td>
-                    <td className='p-2'>R$ 300.000,00</td>
-                    <td className='p-2'>+ 0.00%</td>
-                    <td className='p-2'>Buy</td>
-                </tr>
+                {cryptos.slice(0, viewMore ? cryptos.length : 5).map((crypto, index) => (
+                    <tr className='text-gray-500 text-left' key={index}>
+                        <td className='p-2'>{crypto.rank}</td>
+                        <td className='p-2'>{crypto.name} {crypto.symbol}</td>
+                        <td className='p-2'>R$ {crypto.priceUsd}</td>
+                        <td className='p-2'>{crypto.changePercent24Hr}%</td>
+                        <td className='p-2'>Buy</td>
+                    </tr>
+                ))}
+                {/*<tr className='text-gray-500 text-left'>*/}
+                {/*    <td className='p-2'>1</td>*/}
+                {/*    <td className='p-2'>Bitcoin</td>*/}
+                {/*    <td className='p-2'>R$ 300.000,00</td>*/}
+                {/*    <td className='p-2'>+ 0.00%</td>*/}
+                {/*    <td className='p-2'>Buy</td>*/}
+                {/*</tr>*/}
+                {/*<tr className='text-gray-500 text-left'>*/}
+                {/*    <td className='p-2'>2</td>*/}
+                {/*    <td className='p-2'>Ethereum</td>*/}
+                {/*    <td className='p-2'>R$ 300.000,00</td>*/}
+                {/*    <td className='p-2'>+ 0.00%</td>*/}
+                {/*    <td className='p-2'>Buy</td>*/}
+                {/*</tr>*/}
+                {/*<tr className='text-gray-500 text-left'>*/}
+                {/*    <td className='p-2'>3</td>*/}
+                {/*    <td className='p-2'>Cardano</td>*/}
+                {/*    <td className='p-2'>R$ 300.000,00</td>*/}
+                {/*    <td className='p-2'>+ 0.00%</td>*/}
+                {/*    <td className='p-2'>Buy</td>*/}
+                {/*</tr>*/}
+                {/*<tr className='text-gray-500 text-left'>*/}
+                {/*    <td className='p-2'>4</td>*/}
+                {/*    <td className='p-2'>Binance Coin</td>*/}
+                {/*    <td className='p-2'>R$ 300.000,00</td>*/}
+                {/*    <td className='p-2'>+ 0.00%</td>*/}
+                {/*    <td className='p-2'>Buy</td>*/}
+                {/*</tr>*/}
+                {/*<tr className='text-gray-500 text-left'>*/}
+                {/*    <td className='p-2'>5</td>*/}
+                {/*    <td className='p-2'>Tether</td>*/}
+                {/*    <td className='p-2'>R$ 300.000,00</td>*/}
+                {/*    <td className='p-2'>+ 0.00%</td>*/}
+                {/*    <td className='p-2'>Buy</td>*/}
+                {/*</tr>*/}
                 </tbody>
             </table>
 
