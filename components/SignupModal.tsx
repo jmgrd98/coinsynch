@@ -1,4 +1,8 @@
+'use client'
+
 import {useState} from 'react';
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignupModal({onClose}: { onClose: () => void }) {
     const [newUser, setNewUser] = useState({
@@ -9,16 +13,8 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
     });
 
     const [checked, setChecked] = useState(false);
+    const [formValid, setFormValid] = useState(false);
     const [isSignInForm, setIsSignInForm] = useState(false);
-    const [showErrors, setShowErrors] = useState(false);
-
-    const initialErrors = {
-        name: false,
-        email: false,
-        password: false,
-        confirmPassword: false,
-    };
-    const [errors, setErrors] = useState(initialErrors);
 
     function handleChange(e) {
         const {name, value} = e.target;
@@ -28,53 +24,70 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
             [name]: value,
         }));
 
-        if (showErrors) {
-            validateForm(name, value);
+        if (name === 'password' && value !== newUser.confirmPassword) {
+            toast.warn('Please fill in all the fields!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
 
-        // validateForm(name, value);
+        if (name === 'confirmPassword' && value !== newUser.password) {
+            toast.warn('Please fill in all the fields!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+
+        if (name === 'confirmPassword' && value === newUser.password) {
+            setChecked(true);
+        }
+
+        if (name === 'password' && value === newUser.confirmPassword) {
+            setChecked(true);
+        }
+
+
     }
 
     function handleCheck(e) {
         setChecked((prevChecked) => !prevChecked);
-        if (showErrors) {
-            validateForm(name, checked);
-        }
-        // validateForm('checked', !checked);
-    }
 
-    function validateForm(fieldName, fieldValue) {
-        const formErrors = {
-            ...errors,
-            checked,
-        };
 
-        formErrors[fieldName] = fieldValue.trim() === '';
-
-        if (fieldName === 'confirmPassword') {
-            formErrors.confirmPassword = formErrors.password !== fieldValue;
-        }
-
-        const isFormValid =
-            !formErrors.name &&
-            !formErrors.email &&
-            !formErrors.password &&
-            !formErrors.confirmPassword &&
-            formErrors.checked;
-
-        setChecked(isFormValid);
-        setErrors(formErrors);
     }
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        setShowErrors(true);
-
-        if (!checked) {
-            console.log('Please fill out all fields and ensure passwords match.');
+        if (!formValid) {
+            toast.warn('Form is invalid!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             return;
         }
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        const newUserList = [...users, newUser];
+        localStorage.setItem('users', JSON.stringify(newUserList));
 
         console.log('User created successfully');
         onClose();
@@ -104,46 +117,34 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
 
                 {!isSignInForm && (
                     <>
-                        {/* Display these inputs only on sign-up view */}
                         <input
                             type="text"
                             name="name"
                             placeholder="Name"
-                            className={`w-full p-2 mt-5 border-2 rounded ${
-                                errors.name ? 'border-red-500' : 'border-gray-300'
-                            }`}
+                            className='w-full p-2 mt-5 border-2 rounded border-gray-300'
                             onChange={handleChange}
                             required
                         />
-                        {showErrors && errors.name && <p className="text-red-500">This field is required.</p>}
-
                     </>
                 )}
 
-                {/* Always display these inputs */}
                 <input
                     type="text"
                     name="email"
                     placeholder="Email"
-                    className={`w-full p-2 mt-5 border-2 rounded ${
-                        errors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className='w-full p-2 mt-5 border-2 rounded border-gray-300'
                     onChange={handleChange}
                     required
                 />
-                {showErrors && errors.email && <p className="text-red-500">This field is required.</p>}
 
                 <input
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className={`w-full p-2 mt-5 border-2 rounded ${
-                        errors.password ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className='w-full p-2 mt-5 border-2 rounded border-gray-300'
                     onChange={handleChange}
                     required
                 />
-                {showErrors && errors.password && <p className="text-red-500">This field is required.</p>}
 
                 {!isSignInForm && (
                     <>
@@ -151,18 +152,14 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
                             type="password"
                             name="confirmPassword"
                             placeholder="Confirm password"
-                            className={`w-full p-2 mt-5 border-2 rounded ${
-                                errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                            }`}
+                            className='w-full p-2 mt-5 border-2 rounded border-gray-300'
                             onChange={handleChange}
                             required
                         />
-                        {showErrors && errors.confirmPassword &&
-                            <p className="text-red-500">Passwords do not match.</p>}
                     </>
                 )}
 
-                <div class='flex items-center gap-1 mt-2'>
+                <div className='flex items-center gap-1 mt-2'>
                     <input
                         type="checkbox"
                         id="termsCheckbox"
@@ -174,16 +171,15 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
                     <label htmlFor="termsCheckbox" className="text-gray-500 cursor-pointer">
                         I have read and accept the
                         <span className="font-bold cursor-pointer">Privacy Policy</span> and the
-                        <span className="font-bold cursor-pointer"> Terms of User Signup.</span>
+                        <span className="font-bold cursor-pointer">Terms of User Signup.</span>
                     </label>
                 </div>
-                {showErrors && errors.terms && <p className="text-red-500">Please accept the Terms and Conditions.</p>}
 
                 <button
                     className={`${
-                        checked ? 'bg-yellow-500' : 'bg-gray-500'
+                        formValid ? 'bg-yellow-500 cursor-pointer' : 'bg-gray-500'
                     } p-4 text-white font-bold rounded-3xl w-full mt-5`}
-                    disabled={!checked}
+                    disabled={!formValid}
                     onClick={handleSubmit}
                 >
                     {isSignInForm ? 'Sign in' : 'Sign up'}
@@ -205,6 +201,19 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
                     </p>
                 </div>
             </form>
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </>
     );
 }
