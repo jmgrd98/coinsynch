@@ -58,7 +58,7 @@ export default function Dashboard() {
                         </div>
 
                         <div
-                            className='bg-yellow-100 font-bold text-gray-700 text-xl p-3 w-1/3 flex items-center justify-center'>
+                            className='bg-yellow-100 font-bold text-gray-700 text-3xl p-3 w-1/3 flex items-center justify-center'>
                             $ {balance}
                         </div>
                     </section>
