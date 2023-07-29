@@ -1,6 +1,36 @@
 'use client'
 
+import axios from "axios";
+import {useEffect, useState} from "react";
+
 export default function TopCryptos() {
+
+    const apiKey: string = 'D755543C-00D2-465A-B026-D3D5E576CF90';
+    const baseUrl: string = 'https://rest.coinapi.io/v1';
+
+    const [viewMore, setViewMore] = useState(false);
+
+    function viewMoreCryptos() {
+        setViewMore(!viewMore);
+    }
+
+    async function fetchCoinData() {
+        try {
+            const response = await axios.get(`${baseUrl}/exchangerate/`, {
+                headers: {
+                    'X-CoinAPI-Key': apiKey
+                }
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCoinData();
+    }, []);
+
+
     return (
         <section className='flex flex-col items-center p-10'>
             <h2 className='text-gray-500 font-bold text-3xl text-center'>Top Cryptos</h2>
@@ -54,6 +84,8 @@ export default function TopCryptos() {
                 </tr>
                 </tbody>
             </table>
+
+            <button className='bg-transparent text-yellow-500 mt-5' onClick={viewMoreCryptos}>{viewMore ? 'View More +' : 'View Less -'}</button>
         </section>
     )
 }
