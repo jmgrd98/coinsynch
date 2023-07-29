@@ -14,6 +14,23 @@ export default function Dashboard() {
 
     const cryptoIconsApiBaseUrl = 'https://cryptoicons.org/api/icon';
     const [cryptoIcon, setCryptoIcon] = useState('');
+    const apiKey: string = '41fed9cd-5510-4753-a716-272f97c1bac3';
+    const baseUrl: string = 'https://api.coincap.io/v2';
+
+    const [cryptos, setCryptos] = useState([]);
+
+    async function fetchCoinData() {
+        try {
+            const response = await axios.get(`${baseUrl}/assets/`);
+            setCryptos(response.data.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCoinData();
+    }, []);
 
     const [balance, setBalance] = useState(423432);
 

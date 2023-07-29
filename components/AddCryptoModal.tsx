@@ -7,6 +7,10 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
 
     const [selectedCrypto, setSelectedCrypto] = useState('');
     const [quantity, setQuantity] = useState(0);
+    // const [selectedCryptoAndQuantity, setSelectCryptoAndQuantity] = useState({
+    //     name: selectedCrypto,
+    //     qty: quantity
+    // });
 
     const apiKey: string = '41fed9cd-5510-4753-a716-272f97c1bac3';
     const baseUrl: string = 'https://api.coincap.io/v2';
@@ -23,11 +27,11 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
         setSelectedCrypto(e.target.value);
     }
 
-    function handleChange(e) {
+    function handleChange(e: any) {
         setQuantity(e.target.value);
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e: any) {
         e.preventDefault();
 
         if (selectedCrypto === '') {
@@ -35,8 +39,7 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
             return;
         }
 
-        console.log('Crypto added successfully');
-        console.log(selectedCrypto, quantity);
+        addCrypto(selectedCrypto, quantity);
         onClose();
     }
 
@@ -44,6 +47,7 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
         try {
             const response = await axios.get(`${baseUrl}/assets/`);
             setCryptos(response.data.data);
+
         } catch (error) {
             console.error(error);
         }
@@ -53,10 +57,22 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
         fetchCoinData();
     }, []);
 
-    function addCrypto() {
-        console.log('Crypto added successfully');
-        console.log(selectedCrypto, quantity);
+    function addCrypto(name: string, quantity: number) {
+
+
+        const cryptoList = JSON.parse(localStorage.getItem('cryptos')) || [];
+
+        const newCrypto = {
+            name: name,
+            qty: quantity,
+        };
+
+        cryptoList.push(newCrypto);
+
+        localStorage.setItem('cryptos', JSON.stringify(cryptoList));
+        console.log(cryptoList);
     }
+    
 
     return (
         <>
@@ -65,7 +81,8 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
                 onClick={handleOverlayClick}
             ></div>
 
-            <form className='fixed z-20 flex flex-col p-5 items-center justify-evenly rounded bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/4 h-1/2'>
+            <form
+                className='fixed z-20 flex flex-col p-5 items-center justify-evenly rounded bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/4 h-1/2'>
                 <h2 className='text-2xl font-bold text-gray-500'>Add Crypto</h2>
                 <select className='bg-gray-100 p-2 rounded mt-5 w-full' onChange={handleSelect}>
                     <option value={''}>Select a crypto</option>
@@ -74,9 +91,12 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
                     ))}
                 </select>
 
-                <input type={'number'} placeholder={'0.0'} className='bg-gray-100 p-2 rounded mt-5 w-full' onChange={handleChange} min={0} />
+                <input type={'number'} placeholder={'0.0'} className='bg-gray-100 p-2 rounded mt-5 w-full'
+                       onChange={handleChange} min={0}/>
 
-                <button className='bg-yellow-500 text-white p-2 rounded-3xl mt-5 w-full' onClick={handleSubmit}>Add Crypto</button>
+                <button className='bg-yellow-500 text-white p-2 rounded-3xl mt-5 w-full' onClick={handleSubmit}>Add
+                    Crypto
+                </button>
             </form>
         </>
     );
