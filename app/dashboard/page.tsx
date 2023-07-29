@@ -19,6 +19,13 @@ export default function Dashboard() {
 
     const [cryptos, setCryptos] = useState([]);
 
+    const [cryptoList, setCryptoList] = useState([]);
+
+    const handleAddCrypto = (newCryptoList) => {
+        setCryptoList(newCryptoList);
+        console.log(newCryptoList);
+    };
+
     async function fetchCoinData() {
         try {
             const response = await axios.get(`${baseUrl}/assets/`);
@@ -45,7 +52,7 @@ export default function Dashboard() {
     }
 
     async function fetchCryptoIcon() {
-        try{
+        try {
             const response = await axios.get(`${cryptoIconsApiBaseUrl}/btc/50`);
             setCryptoIcon(response.data);
         } catch (error) {
@@ -110,19 +117,41 @@ export default function Dashboard() {
                                 <h2 className='text-2xl font-bold text-gray-500'>My Wallet</h2>
                             </div>
 
-                            <button className='bg-yellow-500 text-white rounded-3xl p-2' onClick={openModal}>+ Add Crypto</button>
+                            <button className='bg-yellow-500 text-white rounded-3xl p-2' onClick={openModal}>+ Add
+                                Crypto
+                            </button>
                         </div>
                     </section>
 
-                    {isOpen && <AddCryptoModal onClose={closeModal} />}
+                    {isOpen && <AddCryptoModal onClose={closeModal} onAddCrypto={handleAddCrypto}/>}
 
                     <section className='flex flex-col gap-5 m-auto p-10 items-center text-center'>
-                        <div className='bg-gray-100 w-1/2 p-5 rounded-3xl flex gap-5'>
-                            <Image src={grayWalletIcon} alt='Empty wallet icon' width={100} height={100}/>
-                        </div>
 
-                        <h3 className='text-gray-500 font-bold text-2xl'>Nothing here yet...</h3>
-                        <p className='text-gray-500'>Add a crypto and start earning.</p>
+                        {cryptoList.map((crypto) => (
+                            <div key={crypto.id} className='flex gap-5 items-center justify-between w-full'>
+                                <div className='flex gap-3 items-center'>
+                                    <Image src={cryptoIcon} alt='Crypto icon' width={50} height={50}/>
+                                    <h2 className='text-2xl font-bold text-gray-500'>{crypto.name}</h2>
+                                </div>
+
+                                <div className='flex gap-5 items-center'>
+                                    <p className='text-gray-500 font-bold text-2xl'>{crypto.amount}</p>
+                                    <p className='text-gray-500 text-2xl'>{crypto.symbol}</p>
+                                </div>
+                            </div>
+                        ))}
+
+                        {cryptoList.length === 0 && (
+                            <>
+                                <div className='bg-gray-100 w-1/2 p-5 rounded-3xl flex gap-5'>
+                                    <Image src={grayWalletIcon} alt='Empty wallet icon' width={100} height={100}/>
+                                </div>
+
+                                <h3 className='text-gray-500 font-bold text-2xl'>Nothing here yet...</h3>
+                                <p className='text-gray-500'>Add a crypto and start earning.</p>
+                            </>
+                        )}
+
                     </section>
 
                 </section>

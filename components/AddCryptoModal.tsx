@@ -3,14 +3,10 @@
 import {useEffect, useState} from 'react';
 import axios from "axios";
 
-export default function AddCryptoModal({onClose}: { onClose: () => void }) {
+export default function AddCryptoModal({ onClose, onAddCrypto }: { onClose: () => void; onAddCrypto: (newCryptoList: any[]) => void }) {
 
     const [selectedCrypto, setSelectedCrypto] = useState('');
     const [quantity, setQuantity] = useState(0);
-    // const [selectedCryptoAndQuantity, setSelectCryptoAndQuantity] = useState({
-    //     name: selectedCrypto,
-    //     qty: quantity
-    // });
 
     const apiKey: string = '41fed9cd-5510-4753-a716-272f97c1bac3';
     const baseUrl: string = 'https://api.coincap.io/v2';
@@ -70,9 +66,10 @@ export default function AddCryptoModal({onClose}: { onClose: () => void }) {
         cryptoList.push(newCrypto);
 
         localStorage.setItem('cryptos', JSON.stringify(cryptoList));
+        onAddCrypto(cryptoList);
         console.log(cryptoList);
     }
-    
+
 
     return (
         <>
