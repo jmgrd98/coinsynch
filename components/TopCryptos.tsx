@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import {useEffect, useState} from "react";
+import Image from "next/image";
 
 export default function TopCryptos() {
 
@@ -32,27 +33,33 @@ export default function TopCryptos() {
 
     return (
         <section className='flex flex-col items-center p-10'>
-            <h2 className='text-gray-500 font-bold text-3xl text-center'>Top Cryptos</h2>
+            <h2 className='text-gray-500 font-bold text-3xl '>Top Cryptos</h2>
 
             <table className='w-full mt-10'>
                 <thead className='font-normal'>
-                <tr className='text-gray-500 text-left font-normal'>
-                    <th className='p-2 font-normal'>#</th>
-                    <th className='p-2 font-normal'>Crypto</th>
-                    <th className='p-2 font-normal'>Price</th>
-                    <th className='p-2 font-normal'>Change</th>
-                    <th className='p-2 font-normal'>Trade</th>
+                <tr className='text-gray-500  font-normal'>
+                    <th className='p-2 font-normal '>#</th>
+                    <th className='p-2 font-normal '>Crypto</th>
+                    <th className='p-2 font-normal '>Price</th>
+                    <th className='p-2 font-normal '>Change</th>
+                    <th className='p-2 font-normal '>Trade</th>
                 </tr>
                 </thead>
 
-                <tbody>
+                <tbody className='text-center'>
                 {cryptos.slice(0, viewMore ? cryptos.length : 5).map((crypto, index) => (
-                    <tr className='text-gray-500 text-left' key={index}>
-                        <td className='p-5'>{crypto.rank}</td>
-                        <td>{crypto.name} {crypto.symbol}</td>
+                    <tr className='text-gray-500' key={index}>
+                        <td className='p-5 text-center'>{crypto.rank}</td>
+                        <td className='flex gap-2 mt-5 justify-center'>
+                            <Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`} alt='Crypto Icon' width={20} height={20}/>
+                            <p>{crypto.name}</p>
+                            <p>{crypto.symbol}</p>
+                        </td>
                         <td>US$ {crypto.priceUsd}</td>
                         <td className={crypto.changePercent24Hr < 0 ? 'text-red-700 p-2' : 'text-green-700 p-2'}>{crypto.changePercent24Hr < 0 ? '' : '+'}{crypto.changePercent24Hr}%</td>
-                        <td className='bg-green-700 text-white text-center rounded-3xl'>Buy</td>
+                        <td>
+                            <button className='bg-green-700 text-white text-center rounded-3xl p-3 w-full'>Buy</button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

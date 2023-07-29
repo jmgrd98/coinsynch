@@ -51,10 +51,21 @@ export default function Dashboard() {
         setIsOpen(false);
     }
 
+
     async function fetchCryptoIcon() {
         try {
-            const response = await axios.get(`${cryptoIconsApiBaseUrl}/btc/50`);
-            setCryptoIcon(response.data);
+            const response = await axios.get('https://coinicons-api.vercel.app/api/icon/btc', {
+                responseType: 'blob', // Set the response type to blob
+            });
+
+            // Read the response data as a data URL
+            const reader = new FileReader();
+            reader.readAsDataURL(response.data);
+
+            // When the reader has finished reading, set the data URL as the cryptoIcon state
+            reader.onloadend = () => {
+                setCryptoIcon(reader.result);
+            };
         } catch (error) {
             console.error(error);
         }
@@ -90,7 +101,7 @@ export default function Dashboard() {
                     <section className='bg-white w-1/4 p-5 rounded shadow'>
                         <p className='text-gray-500'>Daily variation</p>
 
-                        {cryptoIcon && <Image src={cryptoIcon} alt='Crypto icon' width={50} height={50}/>}
+                        {cryptoIcon && <img src={cryptoIcon} alt='Crypto icon' width={50} height={50} />}
 
                     </section>
 
@@ -130,7 +141,7 @@ export default function Dashboard() {
                         {cryptoList.map((crypto) => (
                             <div key={crypto.id} className='flex gap-5 items-center justify-between w-full'>
                                 <div className='flex gap-3 items-center'>
-                                    <Image src={cryptoIcon} alt='Crypto icon' width={50} height={50}/>
+                                    <Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/50`} alt='Crypto icon' width={50} height={50}/>
                                     <h2 className='text-2xl font-bold text-gray-500'>{crypto.name}</h2>
                                 </div>
 
