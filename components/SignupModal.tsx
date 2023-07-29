@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
-export default function SignupModal({ onClose }: { onClose: () => void }) {
+export default function SignupModal({onClose}: { onClose: () => void }) {
     const [newUser, setNewUser] = useState({
         name: '',
         email: '',
@@ -21,7 +21,7 @@ export default function SignupModal({ onClose }: { onClose: () => void }) {
     const [errors, setErrors] = useState(initialErrors);
 
     function handleChange(e) {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
 
         setNewUser((prevState) => ({
             ...prevState,
@@ -113,6 +113,7 @@ export default function SignupModal({ onClose }: { onClose: () => void }) {
                                 errors.name ? 'border-red-500' : 'border-gray-300'
                             }`}
                             onChange={handleChange}
+                            required
                         />
                         {showErrors && errors.name && <p className="text-red-500">This field is required.</p>}
 
@@ -128,6 +129,7 @@ export default function SignupModal({ onClose }: { onClose: () => void }) {
                         errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
                     onChange={handleChange}
+                    required
                 />
                 {showErrors && errors.email && <p className="text-red-500">This field is required.</p>}
 
@@ -139,37 +141,41 @@ export default function SignupModal({ onClose }: { onClose: () => void }) {
                         errors.password ? 'border-red-500' : 'border-gray-300'
                     }`}
                     onChange={handleChange}
+                    required
                 />
                 {showErrors && errors.password && <p className="text-red-500">This field is required.</p>}
 
                 {!isSignInForm && (
                     <>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm password"
-                        className={`w-full p-2 mt-5 border-2 rounded ${
-                            errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                        }`}
-                        onChange={handleChange}
-                    />
-                    {showErrors && errors.confirmPassword && <p className="text-red-500">Passwords do not match.</p>}
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            placeholder="Confirm password"
+                            className={`w-full p-2 mt-5 border-2 rounded ${
+                                errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                            }`}
+                            onChange={handleChange}
+                            required
+                        />
+                        {showErrors && errors.confirmPassword &&
+                            <p className="text-red-500">Passwords do not match.</p>}
                     </>
                 )}
 
                 <div class='flex items-center gap-1 mt-2'>
-                <input
-                    type="checkbox"
-                    id="termsCheckbox"
-                    className="checked:bg-yellow-500"
-                    checked={checked}
-                    onChange={handleCheck}
-                />
-                <label htmlFor="termsCheckbox" className="text-gray-500 cursor-pointer">
-                    I have read and accept the
-                    <span className="font-bold cursor-pointer">Privacy Policy</span> and the
-                    <span className="font-bold cursor-pointer"> Terms of User Signup.</span>
-                </label>
+                    <input
+                        type="checkbox"
+                        id="termsCheckbox"
+                        className="checked:bg-yellow-500"
+                        checked={checked}
+                        onChange={handleCheck}
+                        required
+                    />
+                    <label htmlFor="termsCheckbox" className="text-gray-500 cursor-pointer">
+                        I have read and accept the
+                        <span className="font-bold cursor-pointer">Privacy Policy</span> and the
+                        <span className="font-bold cursor-pointer"> Terms of User Signup.</span>
+                    </label>
                 </div>
                 {showErrors && errors.terms && <p className="text-red-500">Please accept the Terms and Conditions.</p>}
 
