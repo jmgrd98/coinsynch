@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
+import Crypto from "@/models/Crypto";
 
 export default function AddCryptoModal({ onClose, onAddCrypto }: { onClose: () => void; onAddCrypto: (newCryptoList: any[]) => void }) {
 

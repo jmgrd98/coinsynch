@@ -9,6 +9,7 @@ import elephantx from '../../public/assets/images/elephantx.svg'
 import grayWalletIcon from '../../public/assets/icons/gray-wallet.svg'
 import AddCryptoModal from "@/components/AddCryptoModal";
 import axios from "axios";
+import Crypto from "@/models/Crypto";
 
 export default function Dashboard() {
 
@@ -21,7 +22,7 @@ export default function Dashboard() {
 
     const [cryptoList, setCryptoList] = useState([]);
 
-    const handleAddCrypto = (newCryptoList: any) => {
+    const handleAddCrypto = (newCryptoList: Crypto[]) => {
         setCryptoList(newCryptoList);
         console.log(newCryptoList);
     };
@@ -138,22 +139,39 @@ export default function Dashboard() {
 
                     {isOpen && <AddCryptoModal onClose={closeModal} onAddCrypto={handleAddCrypto}/>}
 
-                    <section className='flex flex-col gap-5 m-auto p-10 items-center text-center'>
+                    <section className='flex flex-col gap-5 m-auto p-10 items-center text-center w-full'>
 
-                        {cryptoList.map((crypto, index) => (
-                            <div key={index} className='flex gap-5 items-center justify-between w-full'>
-                                <div className='flex gap-3 items-center'>
-                                    <Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`} alt='Crypto icon' width={20} height={20}/>
-                                    <h2 className='text-2xl font-bold text-gray-500'>{crypto.name}</h2>
-                                    <p>{crypto.symbol}</p>
-                                </div>
+                        <table className='w-full mt-10'>
+                            <thead className='font-normal'>
+                            <tr className='text-gray-500  font-normal'>
+                                <th className='p-2 font-normal'>#</th>
+                                <th className='p-2 font-normal '>Crypto</th>
+                                <th className='p-2 font-normal '>Holdings</th>
+                                <th className='p-2 font-normal '>Change</th>
+                                <th className='p-2 font-normal '>Trade</th>
+                            </tr>
+                            </thead>
 
-                                <div className='flex gap-5 items-center'>
-                                    <p className='text-gray-500 font-bold text-2xl'>{crypto.amount}</p>
-                                    <p className='text-gray-500 text-2xl'>{crypto.symbol}</p>
-                                </div>
-                            </div>
-                        ))}
+                            <tbody>
+                            {cryptoList.map((crypto, index) => (
+                                <tr key={index} className='text-gray-500 font-normal'>
+                                    <td className='p-2 font-normal'>{index + 1}</td>
+                                    <td className='p-2 font-normal flex gap-2'>
+                                        <Image src={`https://cryptoicons.org/api/icon/${crypto.name.toLowerCase()}/20`} alt='Crypto icon' width={20} height={20}/>
+                                        <p>{crypto.name}</p>
+                                        <p>{crypto.symbol}</p>
+                                    </td>
+                                    <td className='p-2 font-normal'>${crypto.price}</td>
+                                    <td className='p-2 font-normal'>{crypto.change}%</td>
+                                    <td className='p-2 font-normal'>
+                                        <button className='bg-yellow-500 text-white rounded-3xl p-2'>Trade</button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+
+
+                        </table>
 
                         {cryptoList.length === 0 && (
                             <>
