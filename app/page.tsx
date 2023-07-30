@@ -22,6 +22,8 @@ export default function Home() {
 
     function handleSignupFormSubmit(newUser) {
 
+
+
         toast.success('User created successfully!', {
             position: 'bottom-right',
             autoClose: 5000,
@@ -36,6 +38,22 @@ export default function Home() {
         closeModal();
     }
 
+    function handleLogin() {
+
+        window.location.href = '/dashboard';
+
+        toast.success('User logged in successfully!', {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'dark',
+        });
+    }
+
 
     return (
         <>
@@ -48,7 +66,7 @@ export default function Home() {
 
                 <button className='bg-yellow-500 p-4 text-white font-bold rounded-3xl w-1/2' onClick={openModal}>SIGN UP NOW -&gt;</button>
 
-                {isOpen && <SignupModal onClose={closeModal} onSignup={handleSignupFormSubmit} />}
+                {isOpen && <SignupModal onClose={closeModal} onSignup={handleSignupFormSubmit || handleLogin} />}
 
                 <div className='flex gap-5'>
 

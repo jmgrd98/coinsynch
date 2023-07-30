@@ -4,7 +4,10 @@ import {useState} from 'react';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export default function SignupModal({onClose}: { onClose: () => void }) {
+
+
     const [newUser, setNewUser] = useState({
         name: '',
         email: '',
@@ -100,6 +103,45 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
         onClose();
     }
 
+    async function login(e: any) {
+        e.preventDefault();
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        const user = users.find((user: any) => user.email === newUser.email && user.password === newUser.password);
+
+        if (!user) {
+            toast.warn('Invalid email or password!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        onClose();
+
+
+        window.location.href = '/dashboard';
+
+        toast.success('Logged in successfully!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
     function handleOverlayClick(e) {
         if (e.target.classList.contains('modal-overlay')) {
             onClose();
@@ -187,7 +229,7 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
                         formValid ? 'bg-yellow-500 cursor-pointer' : 'bg-gray-500'
                     } p-4 text-white font-bold rounded-3xl w-full mt-5`}
                     disabled={!formValid}
-                    onClick={handleSubmit}
+                    onClick={isSignInForm ? login : handleSubmit}
                 >
                     {isSignInForm ? 'Sign in' : 'Sign up'}
                 </button>
