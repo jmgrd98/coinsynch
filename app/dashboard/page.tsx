@@ -144,8 +144,8 @@ export default function Dashboard() {
                     {isOpen && <AddCryptoModal onClose={closeModal} onAddCrypto={handleAddCrypto}/>}
 
                     {cryptoList.length > 0 && (
-                        <section className='flex flex-col gap-5 m-auto p-10 items-center text-center w-full'>
-                            <table className='w-full mt-10'>
+                        <section className='flex flex-col gap-5 items-center text-center w-full'>
+                            <table className='w-full'>
                                 <thead className='font-normal'>
                                 <tr className='text-gray-500  font-normal'>
                                     <th className='p-2 font-normal'>#</th>
@@ -158,20 +158,25 @@ export default function Dashboard() {
 
                                 <tbody>
                                 {cryptoList.map((crypto, index) => (
-                                    <tr key={index} className='text-gray-500 font-normal'>
+                                    <tr key={index} className={index % 2 == 1 ? 'text-gray-500 font-normal' : 'text-gray-500 font-normal bg-gray-100'}>
                                         <td className='p-2 font-normal'>{index + 1}</td>
-                                        <td className='p-2 font-normal flex gap-2 w-full'>
+                                        <td className='p-2 font-normal'>
+                                            <div className='flex items-center justify-center gap-2'>
                                             <Image
-                                                src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`}
-                                                alt='Crypto icon' width={20} height={20}/>
-                                            <p>{crypto.name}</p>
-                                            <p>{crypto.symbol}</p>
+                                            src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/30`}
+                                            alt='Crypto icon' width={30} height={30} />
+                                            <p className='text-gray-900'>{crypto.name}</p>
+                                            <p className='text-gray-500'>{crypto.symbol}</p>
+                                            </div>
+                                        </td>
+                                        <td className='p-2 font-normal flex gap-2 w-full'>
+                                            
                                         </td>
                                         <td className='p-2 font-normal flex flex-col'>
-                                            <p>${crypto.priceUsd}</p>
-                                            <p>{crypto.qty}</p>
+                                            <p>US${crypto.priceUsd}</p>
+                                            <p className={'text-yellow-500'}>{crypto.qty} {crypto.symbol}</p>
                                         </td>
-                                        <td className='p-2 font-normal'>{crypto.changePercent24Hr}%</td>
+                                        <td className={crypto.changePercent24Hr < 0 ? 'text-red-700 p-2' : 'text-green-700 p-2'}>{crypto.changePercent24Hr < 0 ? '' : '+'}{crypto.changePercent24Hr}%</td>
                                         <td className='p-2 font-normal'>
                                             <button className='bg-yellow-500 text-white rounded-3xl p-2' onClick={trade}>Trade</button>
                                         </td>
