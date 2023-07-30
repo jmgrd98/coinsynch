@@ -63,6 +63,8 @@ export default function Dashboard() {
             const reader = new FileReader();
             reader.readAsDataURL(response.data);
 
+            console.log(reader.result)
+
             reader.onloadend = () => {
                 setCryptoIcon(reader.result);
             };
@@ -143,6 +145,7 @@ export default function Dashboard() {
                                 <div className='flex gap-3 items-center'>
                                     {/*<Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`} alt='Crypto icon' width={20} height={20}/>*/}
                                     <h2 className='text-2xl font-bold text-gray-500'>{crypto.name}</h2>
+                                    <p>{crypto.symbol}</p>
                                 </div>
 
                                 <div className='flex gap-5 items-center'>
