@@ -2,6 +2,7 @@
 
 import {useEffect, useState} from 'react';
 import axios from "axios";
+import {toast, ToastContainer} from "react-toastify";
 
 export default function AddCryptoModal({ onClose, onAddCrypto }: { onClose: () => void; onAddCrypto: (newCryptoList: any[]) => void }) {
 
@@ -31,7 +32,15 @@ export default function AddCryptoModal({ onClose, onAddCrypto }: { onClose: () =
         e.preventDefault();
 
         if (selectedCrypto === '') {
+
+            toast.error('Please select a crypto');
             console.log('Please select a crypto');
+            return;
+        }
+
+        if (quantity === null || quantity === 0) {
+            toast.error('Please enter a quantity');
+            console.log('Please enter a quantity');
             return;
         }
 
@@ -95,6 +104,18 @@ export default function AddCryptoModal({ onClose, onAddCrypto }: { onClose: () =
                     Crypto
                 </button>
             </form>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss={true}
+                draggable={true}
+                pauseOnHover={true}
+                theme={'dark'}
+            />
         </>
     );
 }

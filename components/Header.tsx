@@ -80,6 +80,11 @@ export default function Header() {
         setIsOpen(false);
     }
 
+    function logout() {
+        localStorage.removeItem('currentUser');
+        window.location.href = '/';
+    }
+
 
     return (
         <header
@@ -140,7 +145,10 @@ export default function Header() {
                             {userName}
                         </button>
                         <button href="/"
-                                className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block">Logout
+                                className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block"
+                                onClick={logout}
+                        >
+                            Logout
                         </button>
                     </div>
                 )}

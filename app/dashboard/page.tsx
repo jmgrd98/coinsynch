@@ -143,7 +143,7 @@ export default function Dashboard() {
                         {cryptoList.map((crypto, index) => (
                             <div key={index} className='flex gap-5 items-center justify-between w-full'>
                                 <div className='flex gap-3 items-center'>
-                                    {/*<Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`} alt='Crypto icon' width={20} height={20}/>*/}
+                                    <Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`} alt='Crypto icon' width={20} height={20}/>
                                     <h2 className='text-2xl font-bold text-gray-500'>{crypto.name}</h2>
                                     <p>{crypto.symbol}</p>
                                 </div>
