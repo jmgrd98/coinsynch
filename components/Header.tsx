@@ -12,6 +12,9 @@ export default function Header() {
     const apiKey: string = 'D755543C-00D2-465A-B026-D3D5E576CF90';
     const baseUrl: string = 'https://rest.coinapi.io/v1';
 
+    const [userName, setUserName] = useState('');
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
     const [solanaPrice, setSolanaPrice] = useState(0);
     const [xlmPrice, setXlmPrice] = useState(0);
 
@@ -45,6 +48,25 @@ export default function Header() {
 
     useEffect(() => {
         fetchCoinData();
+    }, []);
+
+    function fetchUserData() {
+
+        if (localStorage.getItem('currentUser') === null) {
+            setIsUserLoggedIn(false);
+            return;
+        }
+
+        setIsUserLoggedIn(true);
+
+        const currentUserString = localStorage.getItem('currentUser');
+        const currentUser = JSON.parse(currentUserString);
+
+        setUserName(currentUser.name);
+    }
+
+    useEffect(() => {
+        fetchUserData();
     }, []);
 
 
@@ -84,16 +106,29 @@ export default function Header() {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between w-1/5">
-                    <button href="/"
-                            className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">Sign
-                        in
-                    </button>
-                    <button href="/"
-                            className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block">Sign
-                        Up
-                    </button>
-                </div>
+
+                {!isUserLoggedIn ? (
+                    <div className="flex items-center justify-between w-1/5">
+                        <button href="/"
+                                className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">Sign
+                            in
+                        </button>
+                        <button href="/"
+                                className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block">Sign
+                            Up
+                        </button>
+                    </div>
+                ) : (
+                    <div className="flex items-center justify-between w-1/5">
+                        <button href="/"
+                                className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">Welcome,
+                            {userName}
+                        </button>
+                        <button href="/"
+                                className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block">Logout
+                        </button>
+                    </div>
+                )}
 
             </div>
         </header>
