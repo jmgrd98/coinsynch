@@ -5,10 +5,22 @@ import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
 import Crypto from "@/models/Crypto";
 
-export default function AddCryptoModal({ onClose, onAddCrypto }: { onClose: () => void; onAddCrypto: (newCryptoList: any[]) => void }) {
+export default function AddCryptoModal({onClose, onAddCrypto}: {
+    onClose: () => void;
+    onAddCrypto: (newCryptoList: any[]) => void
+}) {
 
     const [selectedCrypto, setSelectedCrypto] = useState('');
     const [quantity, setQuantity] = useState(0);
+
+    const [newCrypto, setNewCrypto] = useState<Crypto>({
+        id: '',
+        name: '',
+        symbol: '',
+        priceUsd: '',
+        changePercent24Hr: '',
+        qty: 0,
+    });
 
     const apiKey: string = '41fed9cd-5510-4753-a716-272f97c1bac3';
     const baseUrl: string = 'https://api.coincap.io/v2';
@@ -63,21 +75,30 @@ export default function AddCryptoModal({ onClose, onAddCrypto }: { onClose: () =
         fetchCoinData();
     }, []);
 
-    function addCrypto(name: string, quantity: number) {
+    async function addCrypto(quantity: number) {
+        try {
+            const selectedCryptoSymbol = selectedCrypto.toLowerCase(); // Ensure symbol is in lowercase
+            const cryptoResponse = await axios.get(`${baseUrl}/assets/${selectedCryptoSymbol}`);
+            const cryptoData = cryptoResponse.data.data;
 
+            const newCrypto = {
+                id: cryptoData.id,
+                name: cryptoData.name,
+                symbol: cryptoData.symbol,
+                priceUsd: cryptoData.priceUsd,
+                changePercent24Hr: cryptoData.changePercent24Hr,
+                qty: quantity,
+            };
 
-        const cryptoList = JSON.parse(localStorage.getItem('cryptos')) || [];
+            const cryptoList = JSON.parse(localStorage.getItem('cryptos')) || [];
+            cryptoList.push(newCrypto);
 
-        const newCrypto = {
-            name: name,
-            qty: quantity,
-        };
-
-        cryptoList.push(newCrypto);
-
-        localStorage.setItem('cryptos', JSON.stringify(cryptoList));
-        onAddCrypto(cryptoList);
-        console.log(cryptoList);
+            localStorage.setItem('cryptos', JSON.stringify(cryptoList));
+            onAddCrypto(cryptoList);
+            console.log(cryptoList);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 

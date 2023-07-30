@@ -88,7 +88,7 @@ export default function Header() {
 
     return (
         <header
-            className="flex items-center justify-between w-full h-16 px-4 bg-white border-b border-gray-200 dark:bg-zinc-800 dark:border-zinc-700">
+            className="flex items-center justify-evenly h-16 px-4 bg-white border-b border-gray-200">
 
             <div className="flex items-center justify-between w-full max-w-5xl">
                 <div className="flex items-center">
@@ -99,7 +99,7 @@ export default function Header() {
                     </a>
                 </div>
 
-                <div className="flex items-center justify-start w-1/5 p-5">
+                <div className="flex items-center w-1/5 p-5">
                     <nav className="flex items-center self-start justify-start w-full max-w-5xl">
                         <a href="/"
                            className="w-1/2 hidden text-sm text-gray-400 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">About
@@ -139,10 +139,10 @@ export default function Header() {
                         </button>
                     </div>
                 ) : (
-                    <div className="flex items-center justify-between w-1/5">
+                    <div className="flex items-center w-1/4 gap-2 ">
                         <button href="/"
-                                className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">Welcome,
-                            {userName}
+                                className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">
+                            Welcome, {userName}!
                         </button>
                         <button href="/"
                                 className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block"

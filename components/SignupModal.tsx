@@ -3,12 +3,13 @@
 import {useState} from 'react';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import User from "@/models/User";
 
 
 export default function SignupModal({onClose}: { onClose: () => void }) {
 
 
-    const [newUser, setNewUser] = useState({
+    const [newUser, setNewUser] = useState<User>({
         name: '',
         email: '',
         password: '',

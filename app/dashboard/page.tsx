@@ -41,7 +41,7 @@ export default function Dashboard() {
     }, []);
 
     const [balance, setBalance] = useState(423432);
-    const formattedBalance = (balance / 100).toLocaleString('en-US', { maximumFractionDigits: 2 });
+    const formattedBalance = (balance / 100).toLocaleString('en-US', {maximumFractionDigits: 2});
 
 
     const [isOpen, setIsOpen] = useState(false);
@@ -104,7 +104,7 @@ export default function Dashboard() {
                     <section className='bg-white w-1/4 p-5 rounded shadow'>
                         <p className='text-gray-500'>Daily variation</p>
 
-                        {cryptoIcon && <Image src={cryptoIcon} alt='Crypto icon' width={50} height={50} />}
+                        {cryptoIcon && <Image src={cryptoIcon} alt='Crypto icon' width={50} height={50}/>}
 
                     </section>
 
@@ -139,52 +139,54 @@ export default function Dashboard() {
 
                     {isOpen && <AddCryptoModal onClose={closeModal} onAddCrypto={handleAddCrypto}/>}
 
-                    <section className='flex flex-col gap-5 m-auto p-10 items-center text-center w-full'>
-
-                        <table className='w-full mt-10'>
-                            <thead className='font-normal'>
-                            <tr className='text-gray-500  font-normal'>
-                                <th className='p-2 font-normal'>#</th>
-                                <th className='p-2 font-normal '>Crypto</th>
-                                <th className='p-2 font-normal '>Holdings</th>
-                                <th className='p-2 font-normal '>Change</th>
-                                <th className='p-2 font-normal '>Trade</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            {cryptoList.map((crypto, index) => (
-                                <tr key={index} className='text-gray-500 font-normal'>
-                                    <td className='p-2 font-normal'>{index + 1}</td>
-                                    <td className='p-2 font-normal flex gap-2'>
-                                        <Image src={`https://cryptoicons.org/api/icon/${crypto.name.toLowerCase()}/20`} alt='Crypto icon' width={20} height={20}/>
-                                        <p>{crypto.name}</p>
-                                        <p>{crypto.symbol}</p>
-                                    </td>
-                                    <td className='p-2 font-normal'>${crypto.price}</td>
-                                    <td className='p-2 font-normal'>{crypto.change}%</td>
-                                    <td className='p-2 font-normal'>
-                                        <button className='bg-yellow-500 text-white rounded-3xl p-2'>Trade</button>
-                                    </td>
+                    {cryptoList.length > 0 && (
+                        <section className='flex flex-col gap-5 m-auto p-10 items-center text-center w-full'>
+                            <table className='w-full mt-10'>
+                                <thead className='font-normal'>
+                                <tr className='text-gray-500  font-normal'>
+                                    <th className='p-2 font-normal'>#</th>
+                                    <th className='p-2 font-normal '>Crypto</th>
+                                    <th className='p-2 font-normal '>Holdings</th>
+                                    <th className='p-2 font-normal '>Change</th>
+                                    <th className='p-2 font-normal '>Trade</th>
                                 </tr>
-                            ))}
-                            </tbody>
+                                </thead>
 
+                                <tbody>
+                                {cryptoList.map((crypto, index) => (
+                                    <tr key={index} className='text-gray-500 font-normal'>
+                                        <td className='p-2 font-normal'>{index + 1}</td>
+                                        <td className='p-2 font-normal flex gap-2'>
+                                            <Image
+                                                src={`https://cryptoicons.org/api/icon/${crypto.name.toLowerCase()}/20`}
+                                                alt='Crypto icon' width={20} height={20}/>
+                                            <p>{crypto.name}</p>
+                                            <p>{crypto.symbol}</p>
+                                        </td>
+                                        <td className='p-2 font-normal'>${crypto.price}</td>
+                                        <td className='p-2 font-normal'>{crypto.change}%</td>
+                                        <td className='p-2 font-normal'>
+                                            <button className='bg-yellow-500 text-white rounded-3xl p-2'>Trade</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </section>
+                    )}
 
-                        </table>
-
-                        {cryptoList.length === 0 && (
-                            <>
+                    {cryptoList.length === 0 && (
+                        <>
+                            <section className='flex flex-col gap-5 m-auto p-10 items-center text-center'>
                                 <div className='bg-gray-100 w-1/2 p-5 rounded-3xl flex gap-5'>
                                     <Image src={grayWalletIcon} alt='Empty wallet icon' width={100} height={100}/>
                                 </div>
 
                                 <h3 className='text-gray-500 font-bold text-2xl'>Nothing here yet...</h3>
                                 <p className='text-gray-500'>Add a crypto and start earning.</p>
-                            </>
-                        )}
-
-                    </section>
+                            </section>
+                        </>
+                    )}
 
                 </section>
             </main>
