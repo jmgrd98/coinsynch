@@ -15,10 +15,17 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
 
     const [newCrypto, setNewCrypto] = useState<Crypto>({
         id: '',
+        rank: 0,
         name: '',
         symbol: '',
-        priceUsd: '',
+        supply: 0,
+        maxSupply: 0,
+        marketCapUsd24Hr: 0,
+        priceUsd: 0,
+        volumeUsd24Hr: 0,
         changePercent24Hr: '',
+        vwap24Hr: 0,
+        explorer: '',
         qty: 0,
     });
 
@@ -75,16 +82,23 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
         fetchCoinData();
     }, []);
 
-    async function addCrypto(quantity: number) {
+    async function addCrypto(crypto: Crypto, quantity: number) {
+        console.log(selectedCrypto)
+        console.log(quantity)
         try {
-            const selectedCryptoSymbol = selectedCrypto.toLowerCase(); // Ensure symbol is in lowercase
-            const cryptoResponse = await axios.get(`${baseUrl}/assets/${selectedCryptoSymbol}`);
+            const selectedCryptoLowerCase = selectedCrypto.toLowerCase(); // Ensure symbol is in lowercase
+            const cryptoResponse = await axios.get(`${baseUrl}/assets/${selectedCryptoLowerCase}`);
             const cryptoData = cryptoResponse.data.data;
 
-            const newCrypto = {
+            const newCrypto: Crypto = {
                 id: cryptoData.id,
+                rank: cryptoData.rank,
                 name: cryptoData.name,
                 symbol: cryptoData.symbol,
+                supply: cryptoData.supply,
+                maxSupply: cryptoData.maxSupply,
+                marketCapUsd: cryptoData.marketCapUsd,
+                volumeUsd24Hr: cryptoData.volumeUsd24Hr,
                 priceUsd: cryptoData.priceUsd,
                 changePercent24Hr: cryptoData.changePercent24Hr,
                 qty: quantity,
@@ -92,6 +106,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
 
             const cryptoList = JSON.parse(localStorage.getItem('cryptos')) || [];
             cryptoList.push(newCrypto);
+            console.log(newCrypto.changePercent24Hr)
 
             localStorage.setItem('cryptos', JSON.stringify(cryptoList));
             onAddCrypto(cryptoList);
@@ -115,7 +130,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
                 <select className='bg-gray-100 p-2 rounded mt-5 w-full' onChange={handleSelect}>
                     <option value={''}>Select a crypto</option>
                     {cryptos.map((crypto, index) => (
-                        <option key={index} value={crypto.symbol}>{crypto.name} ({crypto.symbol})</option>
+                        <option key={index} value={crypto.name || crypto.symbol}>{crypto.name} ({crypto.symbol})</option>
                     ))}
                 </select>
 

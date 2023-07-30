@@ -78,6 +78,10 @@ export default function Dashboard() {
         fetchCryptoIcon();
     }, []);
 
+    function trade() {
+        console.log('Trade');
+    }
+
     return (
         <section className='flex'>
             <Sidebar className='w-1/4 '/>
@@ -156,17 +160,20 @@ export default function Dashboard() {
                                 {cryptoList.map((crypto, index) => (
                                     <tr key={index} className='text-gray-500 font-normal'>
                                         <td className='p-2 font-normal'>{index + 1}</td>
-                                        <td className='p-2 font-normal flex gap-2'>
+                                        <td className='p-2 font-normal flex gap-2 w-full'>
                                             <Image
-                                                src={`https://cryptoicons.org/api/icon/${crypto.name.toLowerCase()}/20`}
+                                                src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`}
                                                 alt='Crypto icon' width={20} height={20}/>
                                             <p>{crypto.name}</p>
                                             <p>{crypto.symbol}</p>
                                         </td>
-                                        <td className='p-2 font-normal'>${crypto.price}</td>
-                                        <td className='p-2 font-normal'>{crypto.change}%</td>
+                                        <td className='p-2 font-normal flex flex-col'>
+                                            <p>${crypto.priceUsd}</p>
+                                            <p>{crypto.qty}</p>
+                                        </td>
+                                        <td className='p-2 font-normal'>{crypto.changePercent24Hr}%</td>
                                         <td className='p-2 font-normal'>
-                                            <button className='bg-yellow-500 text-white rounded-3xl p-2'>Trade</button>
+                                            <button className='bg-yellow-500 text-white rounded-3xl p-2' onClick={trade}>Trade</button>
                                         </td>
                                     </tr>
                                 ))}
