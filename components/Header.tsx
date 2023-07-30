@@ -6,6 +6,7 @@ import {useState, useEffect} from 'react'
 import '../styles/global.css'
 import logo from '../public/assets/images/logo.png'
 import axios from "axios";
+import SignupModal from "@/components/SignupModal";
 
 export default function Header() {
 
@@ -69,6 +70,16 @@ export default function Header() {
         fetchUserData();
     }, []);
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
 
     return (
         <header
@@ -110,12 +121,16 @@ export default function Header() {
                 {!isUserLoggedIn ? (
                     <div className="flex items-center justify-between w-1/5">
                         <button href="/"
-                                className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">Sign
-                            in
+                                className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block"
+                                onClick={openModal}
+                        >
+                            Sign in
                         </button>
                         <button href="/"
-                                className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block">Sign
-                            Up
+                                className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block"
+                                onClick={openModal}
+                        >
+                            Sign Up
                         </button>
                     </div>
                 ) : (
@@ -131,6 +146,7 @@ export default function Header() {
                 )}
 
             </div>
+            {isOpen && <SignupModal onClose={closeModal} />}
         </header>
 
     )
