@@ -6,6 +6,7 @@ import {useState} from "react";
 import SignupModal from "@/components/SignupModal";
 import TopCryptos from "@/components/TopCryptos";
 import Newsletter from "@/components/Newsletter";
+import {toast, ToastContainer} from "react-toastify";
 
 export default function Home() {
 
@@ -19,6 +20,22 @@ export default function Home() {
         setIsOpen(false);
     }
 
+    function handleSignupFormSubmit(newUser) {
+
+        toast.success('User created successfully!', {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'dark',
+        });
+
+        closeModal();
+    }
+
 
     return (
         <>
@@ -29,9 +46,9 @@ export default function Home() {
                 <p className='text-gray-600 text-2xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
                     aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor</p>
 
-                <button className='bg-yellow-500 p-4 text-white font-bold rounded-3xl w-1/2' onClick={openModal}>SIGN UP NOW -></button>
+                <button className='bg-yellow-500 p-4 text-white font-bold rounded-3xl w-1/2' onClick={openModal}>SIGN UP NOW -&gt;</button>
 
-                {isOpen && <SignupModal onClose={closeModal} />}
+                {isOpen && <SignupModal onClose={closeModal} onSignup={handleSignupFormSubmit} />}
 
                 <div className='flex gap-5'>
 
@@ -52,6 +69,19 @@ export default function Home() {
 
             <TopCryptos />
             <Newsletter />
+
+            <ToastContainer
+                position='bottom-right'
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme='dark'
+            />
         </>
     )
 }

@@ -21,7 +21,7 @@ export default function Dashboard() {
 
     const [cryptoList, setCryptoList] = useState([]);
 
-    const handleAddCrypto = (newCryptoList) => {
+    const handleAddCrypto = (newCryptoList: any) => {
         setCryptoList(newCryptoList);
         console.log(newCryptoList);
     };
@@ -40,6 +40,8 @@ export default function Dashboard() {
     }, []);
 
     const [balance, setBalance] = useState(423432);
+    const formattedBalance = (balance / 100).toLocaleString('en-US', { maximumFractionDigits: 2 });
+
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -55,14 +57,12 @@ export default function Dashboard() {
     async function fetchCryptoIcon() {
         try {
             const response = await axios.get('https://coinicons-api.vercel.app/api/icon/btc', {
-                responseType: 'blob', // Set the response type to blob
+                responseType: 'blob',
             });
 
-            // Read the response data as a data URL
             const reader = new FileReader();
             reader.readAsDataURL(response.data);
 
-            // When the reader has finished reading, set the data URL as the cryptoIcon state
             reader.onloadend = () => {
                 setCryptoIcon(reader.result);
             };
@@ -94,14 +94,14 @@ export default function Dashboard() {
 
                         <div
                             className='bg-yellow-100 font-bold text-gray-700 text-3xl p-3 w-1/3 flex items-center justify-center'>
-                            $ {balance}
+                            $ {formattedBalance}
                         </div>
                     </section>
 
                     <section className='bg-white w-1/4 p-5 rounded shadow'>
                         <p className='text-gray-500'>Daily variation</p>
 
-                        {cryptoIcon && <img src={cryptoIcon} alt='Crypto icon' width={50} height={50} />}
+                        {cryptoIcon && <Image src={cryptoIcon} alt='Crypto icon' width={50} height={50} />}
 
                     </section>
 
@@ -138,10 +138,10 @@ export default function Dashboard() {
 
                     <section className='flex flex-col gap-5 m-auto p-10 items-center text-center'>
 
-                        {cryptoList.map((crypto) => (
-                            <div key={crypto.id} className='flex gap-5 items-center justify-between w-full'>
+                        {cryptoList.map((crypto, index) => (
+                            <div key={index} className='flex gap-5 items-center justify-between w-full'>
                                 <div className='flex gap-3 items-center'>
-                                    <Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/50`} alt='Crypto icon' width={50} height={50}/>
+                                    {/*<Image src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/20`} alt='Crypto icon' width={20} height={20}/>*/}
                                     <h2 className='text-2xl font-bold text-gray-500'>{crypto.name}</h2>
                                 </div>
 

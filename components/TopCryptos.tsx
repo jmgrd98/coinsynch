@@ -65,7 +65,7 @@ export default function TopCryptos() {
                 </tbody>
             </table>
 
-            <button className='bg-transparent text-yellow-500 mt-5' onClick={viewMoreCryptos}>{viewMore ? 'View More +' : 'View Less -'}</button>
+            <button className='bg-transparent text-yellow-500 mt-5' onClick={viewMoreCryptos}>{!viewMore ? 'View More +' : 'View Less -'}</button>
         </section>
     )
 }

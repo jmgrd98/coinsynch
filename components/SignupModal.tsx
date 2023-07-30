@@ -34,8 +34,22 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
         e.preventDefault();
 
 
-        if (newUser.name === '' || newUser.email === '' || newUser.password === '', newUser.confirmPassword === '') {
+        if (newUser.name === '' || newUser.email === '' || newUser.password === '' || newUser.confirmPassword === '') {
             toast.warn('Please fill in all fields!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
+        if (!newUser.email.includes('@', '.gmail', '.com', '.net', '.org', '.edu', '.gov', '.mil', '.hotmail', '.yahoo', '.aol', '.msn', '.live', '.outlook', '.icloud', '.me')) {
+            toast.warn('Please enter a valid email address!', {
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -82,6 +96,7 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
         localStorage.setItem('users', JSON.stringify(newUserList));
 
         console.log('User created successfully');
+        console.log(newUserList);
         onClose();
     }
 
@@ -204,7 +219,7 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="colored"
+                theme="dark"
             />
         </>
     );
