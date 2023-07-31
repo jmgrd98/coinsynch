@@ -165,7 +165,7 @@ export default function Dashboard() {
                     {isTransferModalOpen &&
                         <TransferModal
                         onClose={closeTransferModal}
-                        selectedCrypto={selectedCrypto}
+                        // selectedCrypto={selectedCrypto}
                         />}
 
                     {cryptoList.length > 0 && (
