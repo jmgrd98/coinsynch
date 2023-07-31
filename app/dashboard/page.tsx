@@ -134,7 +134,7 @@ export default function Dashboard() {
 
                     <section className='bg-white w-1/4 flex rounded shadow'>
                         <div className='flex p-3 flex-col gap-2'>
-                            <p className='text-gray-500 font-bold'>NFT's NEWS</p>
+                            <p className='text-gray-500 font-bold'>NFT&apos;s  NEWS</p>
                             <p className='text-gray-300'>New ElephantX NFT to be launched!</p>
                             <p className='text-yellow-400'>Read more +</p>
                         </div>
