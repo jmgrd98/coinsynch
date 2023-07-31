@@ -30,7 +30,7 @@ export default function Dashboard() {
 
     const [cryptoList, setCryptoList] = useState([]);
 
-    const handleAddCrypto = (newCryptoList: Crypto[]) => {
+    const handleAddCrypto = (newCryptoList: any) => {
         setCryptoList(newCryptoList);
         console.log(newCryptoList);
     };
