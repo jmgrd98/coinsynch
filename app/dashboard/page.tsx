@@ -22,7 +22,7 @@ export default function Dashboard() {
 
     const [selectedCrypto, setSelectedCrypto] = useState(null);
 
-    const handleSelectedCryptoChange = (crypto) => {
+    const handleSelectedCryptoChange = (crypto: Crypto) => {
         setSelectedCrypto(crypto);
     };
 
