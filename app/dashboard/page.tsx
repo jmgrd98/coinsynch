@@ -10,6 +10,8 @@ import grayWalletIcon from '../../public/assets/icons/gray-wallet.svg'
 import AddCryptoModal from "@/components/AddCryptoModal";
 import axios from "axios";
 import Crypto from "@/models/Crypto";
+import tradeIcon from '../../public/assets/icons/trade-icon.svg';
+import TransferModal from "@/components/TransferModal";
 
 export default function Dashboard() {
 
@@ -17,6 +19,12 @@ export default function Dashboard() {
     const [cryptoIcon, setCryptoIcon] = useState('');
     const apiKey: string = '41fed9cd-5510-4753-a716-272f97c1bac3';
     const baseUrl: string = 'https://api.coincap.io/v2';
+
+    const [selectedCrypto, setSelectedCrypto] = useState(null);
+
+    const handleSelectedCryptoChange = (crypto) => {
+        setSelectedCrypto(crypto);
+    };
 
     const [cryptos, setCryptos] = useState([]);
 
@@ -45,6 +53,7 @@ export default function Dashboard() {
 
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
 
     function openModal() {
         setIsOpen(true);
@@ -78,8 +87,19 @@ export default function Dashboard() {
         fetchCryptoIcon();
     }, []);
 
-    function trade() {
+    function openTransferModal() {
+        setIsTransferModalOpen(true);
+    }
+
+    function closeTransferModal() {
+        setIsTransferModalOpen(false);
+    }
+
+    function trade(crypto: Crypto) {
+        // handleSelectedCryptoChange(selectedCrypto);
+        openTransferModal();
         console.log('Trade');
+        return crypto;
     }
 
     return (
@@ -142,6 +162,11 @@ export default function Dashboard() {
                     </section>
 
                     {isOpen && <AddCryptoModal onClose={closeModal} onAddCrypto={handleAddCrypto}/>}
+                    {isTransferModalOpen &&
+                        <TransferModal
+                        onClose={closeTransferModal}
+                        selectedCrypto={selectedCrypto}
+                        />}
 
                     {cryptoList.length > 0 && (
                         <section className='flex flex-col gap-5 items-center text-center w-full'>
@@ -176,9 +201,11 @@ export default function Dashboard() {
                                             <p>US${crypto.priceUsd}</p>
                                             <p className={'text-yellow-500'}>{crypto.qty} {crypto.symbol}</p>
                                         </td>
-                                        <td className={crypto.changePercent24Hr < 0 ? 'text-red-700 p-2' : 'text-green-700 p-2'}>{crypto.changePercent24Hr < 0 ? '' : '+'}{crypto.changePercent24Hr}%</td>
+                                        <td className={crypto.changePercent24Hr < 0 ? 'text-red-700 font-semibold p-2' : 'text-green-700 font-semibold p-2'}>{crypto.changePercent24Hr < 0 ? '' : '+'}{parseFloat(crypto.changePercent24Hr).toFixed(2)}%</td>
                                         <td className='p-2 font-normal'>
-                                            <button className='bg-yellow-500 text-white rounded-3xl p-2' onClick={trade}>Trade</button>
+                                            <button onClick={trade(crypto)}>
+                                                <Image src={tradeIcon} alt='Trade Icon' width={20} height={20}/>
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

@@ -56,7 +56,7 @@ export default function TopCryptos() {
                             <p>{crypto.symbol}</p>
                         </td>
                         <td>US$ {crypto.priceUsd}</td>
-                        <td className={crypto.changePercent24Hr < 0 ? 'text-red-700 p-2' : 'text-green-700 p-2'}>{crypto.changePercent24Hr < 0 ? '' : '+'}{crypto.changePercent24Hr}%</td>
+                        <td className={crypto.changePercent24Hr < 0 ? 'text-red-700 font-semibold p-2' : 'text-green-700 font-semibold p-2'}>{crypto.changePercent24Hr < 0 ? '' : '+'}{parseFloat(crypto.changePercent24Hr).toFixed(2)}%</td>
                         <td>
                             <button className='bg-green-700 text-white text-center rounded-3xl p-3 w-full'>Buy</button>
                         </td>
