@@ -104,7 +104,7 @@ export default function Dashboard() {
 
     return (
         <section className='flex'>
-            <Sidebar className='w-1/4 '/>
+            <Sidebar />
 
             <main className='bg-gray-100 w-full p-10 '>
 
