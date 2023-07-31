@@ -64,28 +64,28 @@ export default function Dashboard() {
     }
 
 
-    async function fetchCryptoIcon() {
-        try {
-            const response = await axios.get('https://coinicons-api.vercel.app/api/icon/btc', {
-                responseType: 'blob',
-            });
-
-            const reader = new FileReader();
-            reader.readAsDataURL(response.data);
-
-            console.log(reader.result)
-
-            reader.onloadend = () => {
-                setCryptoIcon(reader.result);
-            };
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect(() => {
-        fetchCryptoIcon();
-    }, []);
+    // async function fetchCryptoIcon() {
+    //     try {
+    //         const response = await axios.get('https://coinicons-api.vercel.app/api/icon/btc', {
+    //             responseType: 'blob',
+    //         });
+    //
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(response.data);
+    //
+    //         console.log(reader.result)
+    //
+    //         reader.onloadend = () => {
+    //             setCryptoIcon(reader.result);
+    //         };
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+    //
+    // useEffect(() => {
+    //     fetchCryptoIcon();
+    // }, []);
 
     function openTransferModal() {
         setIsTransferModalOpen(true);
