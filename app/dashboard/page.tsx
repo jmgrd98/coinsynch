@@ -188,7 +188,7 @@ export default function Dashboard() {
                                         <td className='p-2 font-normal'>
                                             <div className='flex items-center justify-center gap-2'>
                                             <Image
-                                            src={`https://cryptoicons.org/api/icon/${crypto.symbol.toLowerCase()}/30`}
+                                            src={`https://cryptoicons.org/api/icon/${toString(crypto.symbol.toLowerCase())}/30`}
                                             alt='Crypto icon' width={30} height={30} />
                                             <p className='text-gray-900'>{crypto.name}</p>
                                             <p className='text-gray-500'>{crypto.symbol}</p>
