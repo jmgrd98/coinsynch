@@ -143,7 +143,7 @@ export default function SignupModal({onClose}: { onClose: () => void }) {
         });
     }
 
-    function handleOverlayClick(e) {
+    function handleOverlayClick(e: any) {
         if (e.target.classList.contains('modal-overlay')) {
             onClose();
         }
