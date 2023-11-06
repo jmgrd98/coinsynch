@@ -13,7 +13,7 @@ interface SignUpModalProps {
 export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
 
 
-    const [newUser, setNewUser] = useState<User>({
+    const [newUser, setNewUser] = useState<any>({
         name: '',
         email: '',
         password: '',
@@ -43,58 +43,22 @@ export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
 
 
         if (newUser.name === '' || newUser.email === '' || newUser.password === '' || newUser.confirmPassword === '') {
-            toast.warn('Please fill in all fields!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.warn('Please fill in all fields!');
             return;
         }
 
         if (!newUser.email.includes('@', '.gmail', '.com', '.net', '.org', '.edu', '.gov', '.mil', '.hotmail', '.yahoo', '.aol', '.msn', '.live', '.outlook', '.icloud', '.me')) {
-            toast.warn('Please enter a valid email address!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.warn('Please enter a valid email address!');
             return;
         }
 
         if (newUser.password !== newUser.confirmPassword) {
-            toast.warn('Passwords do not match!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.warn('Passwords do not match!');
             return;
         }
 
         if (!formValid) {
-            toast.warn('Form is invalid!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.warn('Form is invalid!');
             return;
         }
 
@@ -116,16 +80,7 @@ export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
         const user = users.find((user: any) => user.email === newUser.email && user.password === newUser.password);
 
         if (!user) {
-            toast.warn('Invalid email or password!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.warn('Invalid email or password!');
             return;
         }
 
@@ -135,16 +90,7 @@ export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
 
         window.location.href = '/dashboard';
 
-        toast.success('Logged in successfully!', {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        });
+        toast.success('Logged in successfully!');
     }
 
     function handleOverlayClick(e: any) {
