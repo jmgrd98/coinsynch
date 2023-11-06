@@ -34,13 +34,13 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
 
     const [cryptos, setCryptos] = useState([]);
 
-    function handleOverlayClick(e) {
+    function handleOverlayClick(e: any) {
         if (e.target.classList.contains('modal-overlay')) {
             onClose();
         }
     }
 
-    function handleSelect(e) {
+    function handleSelect(e: any) {
         setSelectedCrypto(e.target.value);
     }
 
