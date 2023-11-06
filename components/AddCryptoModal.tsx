@@ -82,39 +82,39 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
         fetchCoinData();
     }, []);
 
-    async function addCrypto(crypto: any, quantity: number) {
-        console.log(selectedCrypto)
-        console.log(quantity)
-        try {
-            const selectedCryptoLowerCase = selectedCrypto.toLowerCase();
-            const cryptoResponse = await axios.get(`${baseUrl}/assets/${selectedCryptoLowerCase}`);
-            const cryptoData = cryptoResponse.data.data;
-
-            const newCrypto: any = {
-                id: cryptoData.id,
-                rank: cryptoData.rank,
-                name: cryptoData.name,
-                symbol: cryptoData.symbol,
-                supply: cryptoData.supply,
-                maxSupply: cryptoData.maxSupply,
-                marketCapUsd: cryptoData.marketCapUsd,
-                volumeUsd24Hr: cryptoData.volumeUsd24Hr,
-                priceUsd: cryptoData.priceUsd,
-                changePercent24Hr: cryptoData.changePercent24Hr,
-                qty: quantity,
-            };
-
-            const cryptoList = JSON.parse(localStorage.getItem('cryptos'));
-            cryptoList.push(newCrypto);
-            console.log(newCrypto.changePercent24Hr)
-
-            localStorage.setItem('cryptos', JSON.stringify(cryptoList));
-            onAddCrypto(cryptoList);
-            console.log(cryptoList);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    // async function addCrypto(crypto: any, quantity: number) {
+    //     console.log(selectedCrypto)
+    //     console.log(quantity)
+    //     try {
+    //         const selectedCryptoLowerCase = selectedCrypto.toLowerCase();
+    //         const cryptoResponse = await axios.get(`${baseUrl}/assets/${selectedCryptoLowerCase}`);
+    //         const cryptoData = cryptoResponse.data.data;
+    //
+    //         const newCrypto: any = {
+    //             id: cryptoData.id,
+    //             rank: cryptoData.rank,
+    //             name: cryptoData.name,
+    //             symbol: cryptoData.symbol,
+    //             supply: cryptoData.supply,
+    //             maxSupply: cryptoData.maxSupply,
+    //             marketCapUsd: cryptoData.marketCapUsd,
+    //             volumeUsd24Hr: cryptoData.volumeUsd24Hr,
+    //             priceUsd: cryptoData.priceUsd,
+    //             changePercent24Hr: cryptoData.changePercent24Hr,
+    //             qty: quantity,
+    //         };
+    //
+    //         const cryptoList = JSON.parse(localStorage.getItem('cryptos'));
+    //         cryptoList.push(newCrypto);
+    //         console.log(newCrypto.changePercent24Hr)
+    //
+    //         localStorage.setItem('cryptos', JSON.stringify(cryptoList));
+    //         onAddCrypto(cryptoList);
+    //         console.log(cryptoList);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
 
     return (
