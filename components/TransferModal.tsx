@@ -5,9 +5,12 @@ import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
 import Crypto from "@/models/Crypto";
 
-export default function TransferModal({onClose, selectedCrypto}: {
-    onClose: () => void;
-}) {
+interface TransferModalProps {
+    onClose: Function,
+    selectedCrypto: any
+}
+
+export default function TransferModal({onClose, selectedCrypto}: TransferModalProps) {
 
     // const [selectedCryptoSymbol, setSelectedCryptoSymbol] = useState('');
 
@@ -139,7 +142,7 @@ export default function TransferModal({onClose, selectedCrypto}: {
                 </div>
                 <select className='bg-gray-100 p-2 rounded mt-5 w-full' onChange={handleSelect}>
                     <option value={''}>Select a crypto</option>
-                    {cryptos.map((crypto, index) => (
+                    {cryptos.map((crypto: any, index: number) => (
                         <option key={index}
                                 value={crypto.name || crypto.symbol}>{crypto.name} ({crypto.symbol})</option>
                     ))}

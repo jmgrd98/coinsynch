@@ -7,7 +7,7 @@ import crypto from '../public/assets/icons/crypto-icon.svg'
 import chart from '../public/assets/icons/chart-icon.svg'
 import '../styles/global.css'
 
-function Tooltip({text, children}) {
+function Tooltip({text: string, children: any}) {
     return (
         <div className='tooltip text-white' data-tooltip={text}>
             {children}

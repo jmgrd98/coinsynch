@@ -21,7 +21,7 @@ export default function TopCryptos() {
         try {
             const response = await axios.get(`${baseUrl}/assets/`);
             setCryptos(response.data.data);
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
         }
     }
@@ -47,7 +47,7 @@ export default function TopCryptos() {
                 </thead>
 
                 <tbody className='text-center'>
-                {cryptos.slice(0, viewMore ? cryptos.length : 5).map((crypto, index) => (
+                {cryptos.slice(0, viewMore ? cryptos.length : 5).map((crypto: any, index: number) => (
                     <tr className='text-gray-500' key={index}>
                         <td className='p-5 text-center'>{crypto.rank}</td>
                         <td className='flex gap-2 mt-5 justify-center'>
