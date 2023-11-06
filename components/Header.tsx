@@ -125,13 +125,13 @@ export default function Header() {
 
                 {!isUserLoggedIn ? (
                     <div className="flex items-center justify-between w-1/5">
-                        <button href="/"
+                        <button
                                 className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block"
                                 onClick={openModal}
                         >
                             Sign in
                         </button>
-                        <button href="/"
+                        <button
                                 className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block"
                                 onClick={openModal}
                         >
@@ -140,11 +140,11 @@ export default function Header() {
                     </div>
                 ) : (
                     <div className="flex items-center w-1/4 gap-2 ">
-                        <button href="/"
+                        <button
                                 className="w-1/2 hidden text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 lg:block">
                             Welcome, {userName}!
                         </button>
-                        <button href="/"
+                        <button
                                 className="w-1/2 p-2 hidden text-sm font-medium text-white bg-yellow-500 rounded-2xl lg:block"
                                 onClick={logout}
                         >
