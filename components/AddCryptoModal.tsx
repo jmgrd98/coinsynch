@@ -13,7 +13,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
     const [selectedCrypto, setSelectedCrypto] = useState('');
     const [quantity, setQuantity] = useState(0);
 
-    const [newCrypto, setNewCrypto] = useState<Crypto>({
+    const [newCrypto, setNewCrypto] = useState<any>({
         id: '',
         rank: 0,
         name: '',
@@ -86,7 +86,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
         console.log(selectedCrypto)
         console.log(quantity)
         try {
-            const selectedCryptoLowerCase = selectedCrypto.toLowerCase(); // Ensure symbol is in lowercase
+            const selectedCryptoLowerCase = selectedCrypto.toLowerCase();
             const cryptoResponse = await axios.get(`${baseUrl}/assets/${selectedCryptoLowerCase}`);
             const cryptoData = cryptoResponse.data.data;
 
