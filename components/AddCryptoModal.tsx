@@ -104,7 +104,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
                 qty: quantity,
             };
 
-            const cryptoList = JSON.parse(localStorage.getItem('cryptos')) || [];
+            const cryptoList = JSON.parse(localStorage.getItem('cryptos'));
             cryptoList.push(newCrypto);
             console.log(newCrypto.changePercent24Hr)
 
