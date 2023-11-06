@@ -90,7 +90,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
             const cryptoResponse = await axios.get(`${baseUrl}/assets/${selectedCryptoLowerCase}`);
             const cryptoData = cryptoResponse.data.data;
 
-            const newCrypto: Crypto = {
+            const newCrypto: any = {
                 id: cryptoData.id,
                 rank: cryptoData.rank,
                 name: cryptoData.name,
