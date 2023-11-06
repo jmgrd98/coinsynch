@@ -64,7 +64,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
             return;
         }
 
-        addCrypto(selectedCrypto, quantity);
+        // addCrypto(selectedCrypto, quantity);
         onClose();
     }
 
