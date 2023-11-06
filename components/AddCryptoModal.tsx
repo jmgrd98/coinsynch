@@ -129,7 +129,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
                 <h2 className='text-2xl font-bold text-gray-500'>Add Crypto</h2>
                 <select className='bg-gray-100 p-2 rounded mt-5 w-full' onChange={handleSelect}>
                     <option value={''}>Select a crypto</option>
-                    {cryptos.map((crypto, index) => (
+                    {cryptos.map((crypto: any, index: number) => (
                         <option key={index} value={crypto.name || crypto.symbol}>{crypto.name} ({crypto.symbol})</option>
                     ))}
                 </select>
