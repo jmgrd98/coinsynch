@@ -7,7 +7,7 @@ import User from "@/models/User";
 
 interface SignUpModalProps {
     onClose: Function,
-    onSignup: Function
+    onSignup?: Function
 }
 
 export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
