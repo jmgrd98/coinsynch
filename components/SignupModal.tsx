@@ -27,15 +27,15 @@ export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
     function handleChange(e: any) {
         const {name, value} = e.target;
 
-        setNewUser((prevState) => ({
+        setNewUser((prevState: any) => ({
             ...prevState,
             [name]: value,
         }));
     }
 
     function handleCheck(e: any) {
-        setChecked((prevChecked) => !prevChecked);
-        setFormValid((prevFormValid) => !prevFormValid);
+        setChecked((prevChecked: any) => !prevChecked);
+        setFormValid((prevFormValid: any) => !prevFormValid);
     }
 
     function handleSubmit(e: any, name: string, value: string) {
