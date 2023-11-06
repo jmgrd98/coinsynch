@@ -51,24 +51,24 @@ export default function Header() {
         fetchCoinData();
     }, []);
 
-    function fetchUserData() {
+    // function fetchUserData() {
+    //
+    //     if (localStorage.getItem('currentUser') === null) {
+    //         setIsUserLoggedIn(false);
+    //         return;
+    //     }
+    //
+    //     setIsUserLoggedIn(true);
+    //
+    //     const currentUserString = localStorage.getItem('currentUser');
+    //     const currentUser = JSON.parse(currentUserString);
+    //
+    //     setUserName(currentUser.name);
+    // }
 
-        if (localStorage.getItem('currentUser') === null) {
-            setIsUserLoggedIn(false);
-            return;
-        }
-
-        setIsUserLoggedIn(true);
-
-        const currentUserString = localStorage.getItem('currentUser');
-        const currentUser = JSON.parse(currentUserString);
-
-        setUserName(currentUser.name);
-    }
-
-    useEffect(() => {
-        fetchUserData();
-    }, []);
+    // useEffect(() => {
+    //     fetchUserData();
+    // }, []);
 
     const [isOpen, setIsOpen] = useState(false);
 
