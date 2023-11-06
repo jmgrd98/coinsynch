@@ -71,7 +71,7 @@ export default function Dashboard() {
         setIsTransferModalOpen(false);
     }
 
-    function trade(crypto: Crypto) {
+    function trade(crypto: any) {
         // handleSelectedCryptoChange(selectedCrypto);
         openTransferModal();
         console.log('Trade');
