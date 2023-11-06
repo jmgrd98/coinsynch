@@ -20,7 +20,7 @@ export default function Home() {
         setIsOpen(false);
     }
 
-    function handleSignupFormSubmit(newUser) {
+    function handleSignupFormSubmit(newUser: any) {
 
 
 
