@@ -63,30 +63,6 @@ export default function Dashboard() {
         setIsOpen(false);
     }
 
-
-    // async function fetchCryptoIcon() {
-    //     try {
-    //         const response = await axios.get('https://coinicons-api.vercel.app/api/icon/btc', {
-    //             responseType: 'blob',
-    //         });
-    //
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(response.data);
-    //
-    //         console.log(reader.result)
-    //
-    //         reader.onloadend = () => {
-    //             setCryptoIcon(reader.result);
-    //         };
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
-    //
-    // useEffect(() => {
-    //     fetchCryptoIcon();
-    // }, []);
-
     function openTransferModal() {
         setIsTransferModalOpen(true);
     }
@@ -165,7 +141,6 @@ export default function Dashboard() {
                     {isTransferModalOpen &&
                         <TransferModal
                         onClose={closeTransferModal}
-                        // selectedCrypto={selectedCrypto}
                         />}
 
                     {cryptoList.length > 0 && (
@@ -182,14 +157,11 @@ export default function Dashboard() {
                                 </thead>
 
                                 <tbody>
-                                {cryptoList.map((crypto, index) => (
+                                {cryptoList.map((crypto: any, index: number) => (
                                     <tr key={index} className={index % 2 == 1 ? 'text-gray-500 font-normal' : 'text-gray-500 font-normal bg-gray-100'}>
                                         <td className='p-2 font-normal'>{index + 1}</td>
                                         <td className='p-2 font-normal'>
                                             <div className='flex items-center justify-center gap-2'>
-                                            {/*<Image*/}
-                                            {/*src={`https://cryptoicons.org/api/icon/${toString(crypto.symbol.toLowerCase())}/30`}*/}
-                                            {/*alt='Crypto icon' width={30} height={30} />*/}
                                             <p className='text-gray-900'>{crypto.name}</p>
                                             <p className='text-gray-500'>{crypto.symbol}</p>
                                             </div>
