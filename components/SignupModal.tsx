@@ -5,8 +5,12 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import User from "@/models/User";
 
+interface SignUpModalProps {
+    onClose: Function,
+    onSignup: Function
+}
 
-export default function SignupModal({onClose}: { onClose: () => void }) {
+export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
 
 
     const [newUser, setNewUser] = useState<User>({
