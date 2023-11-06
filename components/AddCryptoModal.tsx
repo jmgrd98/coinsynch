@@ -82,7 +82,7 @@ export default function AddCryptoModal({onClose, onAddCrypto}: {
         fetchCoinData();
     }, []);
 
-    async function addCrypto(crypto: Crypto, quantity: number) {
+    async function addCrypto(crypto: any, quantity: number) {
         console.log(selectedCrypto)
         console.log(quantity)
         try {
