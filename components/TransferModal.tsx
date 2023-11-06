@@ -7,7 +7,7 @@ import Crypto from "@/models/Crypto";
 
 interface TransferModalProps {
     onClose: Function,
-    selectedCrypto: any
+    selectedCrypto?: any
 }
 
 export default function TransferModal({onClose, selectedCrypto}: TransferModalProps) {
