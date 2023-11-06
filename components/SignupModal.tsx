@@ -73,24 +73,24 @@ export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
     }
 
     async function login(e: any) {
-        e.preventDefault();
-
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-
-        const user = users.find((user: any) => user.email === newUser.email && user.password === newUser.password);
-
-        if (!user) {
-            toast.warn('Invalid email or password!');
-            return;
-        }
-
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        onClose();
-
-
-        window.location.href = '/dashboard';
-
-        toast.success('Logged in successfully!');
+        // e.preventDefault();
+        //
+        // const users = JSON.parse(localStorage.getItem('users')) || [];
+        //
+        // const user = users.find((user: any) => user.email === newUser.email && user.password === newUser.password);
+        //
+        // if (!user) {
+        //     toast.warn('Invalid email or password!');
+        //     return;
+        // }
+        //
+        // localStorage.setItem('currentUser', JSON.stringify(user));
+        // onClose();
+        //
+        //
+        // window.location.href = '/dashboard';
+        //
+        // toast.success('Logged in successfully!');
     }
 
     function handleOverlayClick(e: any) {
