@@ -62,14 +62,14 @@ export default function SignupModal({onClose, onSignup}: SignUpModalProps) {
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem('users')) || [];
+        // const users = JSON.parse(localStorage.getItem('users')) || [];
 
-        const newUserList = [...users, newUser];
-        localStorage.setItem('users', JSON.stringify(newUserList));
-
-        console.log('User created successfully');
-        console.log(newUserList);
-        onClose();
+        // const newUserList = [...users, newUser];
+        // localStorage.setItem('users', JSON.stringify(newUserList));
+        //
+        // console.log('User created successfully');
+        // console.log(newUserList);
+        // onClose();
     }
 
     async function login(e: any) {
